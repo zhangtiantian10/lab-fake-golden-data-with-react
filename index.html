@@ -83,7 +83,23 @@
                         </div>
                 )
             } else {
-                
+                return (
+                        <div>
+                            <button onClick={() => this.display()}>编辑</button>
+                            {this.state.froms.map(from => {
+                                if (from === 0) {
+                                    return <div>
+                                        <input type="text"/>
+                                    </div>
+                                } else {
+                                    return <div>
+                                        <input type="date"/>
+                                    </div>
+
+                                }
+                            })}
+                        </div>
+                )
             }
         }
     }
