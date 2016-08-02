@@ -8,6 +8,33 @@
     <script src="build/react-dom.js"></script>
     <script src="build/browser.min.js"></script>
     <script src="calculate.js"></script>
+    <style>
+        .center {
+            width: auto;
+            display: table;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .form-control {
+            width: 50%;
+        }
+
+        .groove {
+            border-style: groove;
+            width: 65%;
+        }
+
+        .groo {
+            border-style: groove;
+            width: 65%;
+            height: 50px;
+        }
+
+        .width{
+            width: 80%;
+        }
+    </style>
 </head>
 <body>
 <div id="app" class="container"></div>
@@ -49,55 +76,91 @@
             })
         }
 
+        getFormLists(){
+            if(this.state.froms.length != 0) {
+
+                return <div className="col-md-8 column ui-sortable groove center">
+                    {this.state.froms.map((from, index) => {
+                        if (from === 0) {
+                            return <div>
+                                <br/>
+                                <form className="form-inline center">
+                                    <textarea className="form-control" rows="4"></textarea>
+                                    <button type="button" className="btn btn-link"
+                                            onClick={() => this.deleteFrom(index)}><span
+                                            className="glyphicon glyphicon-remove-circle"
+                                            aria-hidden="true"></span></button>
+                                </form>
+                                <br/>
+                            </div>
+                        } else {
+                            return <div>
+                                <br/>
+                                <form className="form-inline center">
+                                    <input className="form-control" type="date"/>
+                                    <button type="button" className="btn btn-link"
+                                            onClick={() => this.deleteFrom(index)}><span
+                                            className="glyphicon glyphicon-remove-circle"
+                                            aria-hidden="true"></span></button>
+                                </form>
+                                <br/>
+                            </div>
+
+                        }
+                    })}
+                </div>
+            } else {
+                return <div className="col-md-8 column ui-sortable center groo"></div>
+            }
+        }
+
         render() {
             if (this.state.flag) {
 
                 return (
-                        <div>
+                        <div className="width center">
                             <div>
-                                <button onClick={() => this.display()}>预览</button>
+                                <button type="button" className="btn btn-primary btn-lg btn-block"
+                                        onClick={() => this.display()}>预览
+                                </button><br/>
                             </div>
-                            <div className="col-md-3 col-md-offset-3">
-                                {this.state.froms.map((from, index) => {
-                                    if (from === 0) {
-                                        return <div>
-                                            <input type="text"/>
-                                            <button onClick={() => this.deleteFrom(index)}>删除</button>
-                                        </div>
-                                    } else {
-                                        return <div>
-                                            <input type="date"/>
-                                            <button onClick={() => this.deleteFrom(index)}>删除</button>
-                                        </div>
+                            <div className="row">
+                                {this.getFormLists()}
+                                <div className="col-md-4 column ui-sortable">
 
-                                    }
-                                })}
-                            </div>
-                            <div className="col-md-3 col-md-offset-3">
-
-                                <div>
-                                    <button onClick={() => this.addText()}>文本框</button>
+                                    <div>
+                                        <button type="button" className="btn btn-link  btn-lg center"
+                                                onClick={() => this.addText()}>文本框
+                                        </button>
+                                    </div>
+                                    <button type="button" className="btn btn-link  btn-lg center"
+                                            onClick={() => this.addDate()}>日 期
+                                    </button>
                                 </div>
-                                <button onClick={() => this.addDate()}>日 期</button>
                             </div>
                         </div>
                 )
             } else {
                 return (
-                        <div>
-                            <button onClick={() => this.display()}>编辑</button>
+                        <div className="width center">
+                            <button type="button" className="btn btn-primary btn-lg btn-block"
+                                    onClick={() => this.display()}>编辑
+                            </button><br/>
+                            <div className="groove center">
                             {this.state.froms.map(from => {
                                 if (from === 0) {
                                     return <div>
-                                        <input type="text"/>
+                                        <br/><textarea className="form-control center" rows="4"></textarea><br/>
                                     </div>
                                 } else {
                                     return <div>
-                                        <input type="date"/>
+                                        <br/>  <input className="form-control center" type="date"/><br/>
                                     </div>
 
                                 }
                             })}
+                            </div>
+                            <br/>   <button type="button" className="center btn btn-primary btn-lg">提交</button>
                         </div>
                 )
             }
