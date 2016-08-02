@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>表单</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="build/react.js"></script>
+    <script src="build/react-dom.js"></script>
+    <script src="build/browser.min.js"></script>
+    <script src="calculate.js"></script>
+</head>
+<body>
+<div id="app" class="container"></div>
+   
+<script type="text/babel">
+    class BorderLeft extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                froms: []
+            }
+        }
+
+        addText() {
+            this.setState({
+                froms: getNewFroms(this.state.froms, 0),
+                index: this.state.index++
+            })
+        }
+
+        addDate() {
+            this.setState({
+                froms: getNewFroms(this.state.froms, 1),
+                index: this.state.index++
+            })
+        }
+
+        render() {
+            return (
+                    <div>
+                        <div className="col-md-3 col-md-offset-3">
+                            {this.state.froms.map((from, index) => {
+                                if (from === 0) {
+                                    return <div>
+                                        <input type="text"/>
+                                        <button>删除</button>
+                                    </div>
+                                } else {
+                                    return <div>
+                                        <input type="date"/>
+                                        <button>删除</button>
+                                    </div>
+
+                                }
+                            })}
+                        </div>
+                        <div className="col-md-3 col-md-offset-3">
+
+                            <div>
+                                <button onClick={() => this.addText()}>文本框</button>
+                            </div>
+                            <button onClick={() => this.addDate()}>日 期</button>
+                        </div>
+                    </div>
+            )
+        }
+    }
+
+    ReactDOM.render(<div>
+        <BorderLeft/>
+    </div>, document.getElementById('app'));
+</script>
+
+</body>
+</html>
