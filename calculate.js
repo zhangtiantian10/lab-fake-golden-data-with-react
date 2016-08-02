@@ -3,3 +3,9 @@ function getNewFroms(froms, element) {
 
     return froms;
 }
+
+function deleteFrom(froms, index) {
+    froms.splice(index, 1);
+
+    return froms;
+}

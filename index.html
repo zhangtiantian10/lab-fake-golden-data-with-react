@@ -35,6 +35,13 @@
             })
         }
 
+        deleteFrom(index) {
+
+            this.setState({
+                froms: deleteFrom(this.state.froms, index)
+            })
+        }
+
         render() {
             return (
                     <div>
@@ -43,12 +50,12 @@
                                 if (from === 0) {
                                     return <div>
                                         <input type="text"/>
-                                        <button>删除</button>
+                                        <button onClick={() => this.deleteFrom(index)}>删除</button>
                                     </div>
                                 } else {
                                     return <div>
                                         <input type="date"/>
-                                        <button>删除</button>
+                                        <button onClick={() => this.deleteFrom(index)}>删除</button>
                                     </div>
 
                                 }
