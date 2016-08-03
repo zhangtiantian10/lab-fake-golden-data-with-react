@@ -21,11 +21,19 @@ class View extends React.Component {
         });
     }
 
+    deleteElement(index) {
+        let formLists = this.state.formLists;
+        formLists.splice(index, 1);
+        this.setState({
+            formLists: formLists
+        });
+    }
+
     render() {
         return <div>
             <button onClick={this.viewChange.bind(this)}>{this.state.isEditor ? "Preview" : "Edit"}</button>
             <div className={this.state.isEditor ? "" : "hidden"}>
-                <Editor onAdd={this.addElement.bind(this)} formLists={this.state.formLists}/>
+                <Editor onAdd={this.addElement.bind(this)} formLists={this.state.formLists} onDelete={this.deleteElement.bind(this)}/>
             </div>
             <div className={this.state.isEditor ? "hidden" : ""}>
                 <Preview/>
@@ -38,17 +46,21 @@ class Editor extends React.Component {
     render() {
         return <div>
             <RightButton onAdd={this.props.onAdd}/>
-            <LeftPanel formLists={this.props.formLists}/>
+            <LeftPanel formLists={this.props.formLists} onDelete={this.props.onDelete}/>
         </div>;
     }
 }
 
 class LeftPanel extends React.Component {
+    deleteElement(index) {
+        this.props.onDelete(index);
+    }
+
     render() {
         const formLists = this.props.formLists.map((formList, index) => {
             return <div key={index}>
                 <input type={formList}/>
-                <button>X</button>
+                <button onClick={this.deleteElement.bind(this, index)}>X</button>
             </div>
         });
 
