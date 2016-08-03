@@ -21,7 +21,7 @@
             return <div>
                 <button onClick={this.add.bind(this, 'text')}>Text</button>
                 <button onClick={this.add.bind(this, 'date')}>Date</button>
-            </div>
+            </div>;
         }
     }
 
@@ -40,7 +40,7 @@
 
             return <div>
                 {formLists}
-            </div>
+            </div>;
         }
     }
 
@@ -49,13 +49,21 @@
             return <div>
                 <RightButton onAdd={this.props.onAdd}/>
                 <LeftPanel formLists={this.props.formLists} onDelete={this.props.onDelete}/>
-            </div>
+            </div>;
         }
     }
 
     class Preview extends React.Component {
         render() {
-            return <h1>Preview</h1>
+            const formLists = this.props.formLists.map((formList, index) => {
+                return <div key={index}>
+                    <input type={formList}/>
+                </div>
+            });
+
+            return <div>
+                {formLists}
+            </div>;
         }
     }
 
@@ -100,9 +108,9 @@
                             onDelete={this.deleteElement.bind(this)}/>
                 </div>
                 <div className={this.state.isEditor ? "hidden" : "show"}>
-                    <Preview/>
+                    <Preview formLists={this.state.formLists}/>
                 </div>
-            </div>)
+            </div>);
         }
     }
     ReactDOM.render(<View/>, document.getElementById('app'));
