@@ -36,7 +36,7 @@ class View extends React.Component {
                 <Editor onAdd={this.addElement.bind(this)} formLists={this.state.formLists} onDelete={this.deleteElement.bind(this)}/>
             </div>
             <div className={this.state.isEditor ? "hidden" : ""}>
-                <Preview/>
+                <Preview formLists={this.state.formLists}/>
             </div>
         </div>;
     }
@@ -85,7 +85,15 @@ class RightButton extends React.Component {
 
 class Preview extends React.Component {
     render() {
-        return <h1>Preview</h1>
+        const formLists = this.props.formLists.map((formList, index) => {
+            return <div key={index}>
+                <input type={formList}/>
+            </div>
+        });
+
+        return <div>
+            {formLists}
+        </div>
     }
 }
 
